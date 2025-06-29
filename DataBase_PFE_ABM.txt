@@ -1,0 +1,63 @@
+create database PFE_data
+go
+
+use PFE_data
+go
+
+
+create table Categorie
+(
+	idCat int primary key,
+	nomCat varchar(200) unique
+)
+go
+
+create table Products
+(
+	idProd int primary key ,
+	nomProd varchar(100),
+	QtProd int,
+	PrixProd money,
+	idCat int foreign key references Categorie(idCat)
+)
+go
+
+create table Adminn
+(
+	loginn varchar(100) primary key,
+	Nom_Prenom varchar(100),
+	MotPass varchar(100),
+	profil varchar(20)
+	
+)
+go
+create table Clients
+(
+	idClient int primary key  identity,
+	NomClient varchar(100),
+	Telephone int,
+)
+
+go
+
+create table commande
+(
+	idCmd int primary key,
+	idClient int references Clients(idClient),
+	dateCmd date,
+	etat_liv bit,
+	etat_pays bit,
+	adresse varchar(200)
+)
+
+go
+
+create table details_comm(
+idCmd int foreign key references commande(idCmd),
+idprod int foreign key references Products(idprod),
+quantite int,
+primary key(idCmd,idprod)
+)
+go
+
+
